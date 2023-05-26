@@ -10,7 +10,7 @@ const initialState: ContatoState = {
         {
             id: 1,
             nome: "Gabriel Viana",
-            numero: 27996144892,
+            numero: "27996144892",
             email: "gabrilgvbf@gmail.com"
         }
     ]
@@ -31,6 +31,15 @@ const contatosSlice = createSlice({
             const idContatoRemover = action.payload
             state.itens = state.itens.filter((contato) => contato.id !== idContatoRemover)
 
+        }, editar: (state, action: PayloadAction<Contato>) => {
+            const contatoEditado = action.payload
+
+            state.itens = state.itens.map((contato) => {
+                if (contato.id === contatoEditado.id) {
+                    return contatoEditado
+                }
+                return contato
+            })
         }
 
     }
@@ -38,5 +47,5 @@ const contatosSlice = createSlice({
 
 })
 
-export const { adicionar, remover } = contatosSlice.actions
+export const { adicionar, remover, editar } = contatosSlice.actions
 export default contatosSlice.reducer

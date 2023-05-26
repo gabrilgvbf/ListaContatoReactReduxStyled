@@ -1,38 +1,67 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import BotaoAdicionar from '../../components/Botoes/IrFormulario';
-import Contato from '../../components/Contato';
-import { ListagemContato } from './styled';
-import { RootReducer } from '../../store';
-import { remover } from '../../store/reducers/contatos';
+import { useDispatch } from "react-redux";
+import BotaoLista from "../../components/Botoes/IrContatos";
+import { PainelAdicionar } from "./styles";
+import { adicionar } from "../../store/reducers/contato";
+import { FormEvent, useState } from "react";
 
-const ListaContato: React.FC = () => {
-    const { itens } = useSelector((state: RootReducer) => state.contatos);
+const FormularioContato = () => {
     const dispatch = useDispatch();
+    const [nome, setNome] = useState("");
+    const [numero, setNumero] = useState("");
+    const [email, setEmail] = useState("");
+    const [id, setId] = useState<number>(0);
 
-    const removerContato = (id: number) => {
-        dispatch(remover(id));
+    const CadastrarContato = (evento: FormEvent) => {
+        evento.preventDefault();
+        dispatch(
+            adicionar({
+                nome,
+                numero,
+                email,
+                id,
+            })
+        );
     };
 
     return (
-        <>
-            <ListagemContato>
-                <h1>My Contacts</h1>
-                {itens.map((contato) => (
-                    <li key={contato.id}>
-                        <Contato
-                            nome={contato.nome}
-                            numero={contato.numero}
-                            email={contato.email}
-                            id={contato.id}
-                            onRemover={() => removerContato(contato.id)}
-                        />
-                    </li>
-                ))}
-                <BotaoAdicionar />
-            </ListagemContato>
-        </>
+        <PainelAdicionar>
+            <h1>Register Contact </h1>
+            <form onSubmit={CadastrarContato}>
+                <label htmlFor="nome">Nome :</label>
+                <input
+                    id="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                />
+
+                <label htmlFor="numero">Cel :</label>
+                <input
+                    id="numero"
+                    type="number"
+                    value={numero}
+                    onChange={(e) => setNumero(e.target.value)}
+                />
+
+                <label htmlFor="email">Email :</label>
+                <input
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <label htmlFor="id">Id :</label>
+                <input
+                    id="id"
+                    type="number"
+                    value={id}
+                    onChange={(e) => setId(Number(e.target.value))}
+                />
+
+                <button type="submit">Adicionar</button>
+            </form>
+            <BotaoLista />
+        </PainelAdicionar>
     );
 };
 
-export default ListaContato;
+export default FormularioContato;
