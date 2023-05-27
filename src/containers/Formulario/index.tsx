@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
-import BotaoLista from "../../styles";
+import { BotaoLista } from "../../styles";
 import { PainelAdicionar } from "./styles";
 import { adicionar } from "../../store/reducers/contato";
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FormularioContato = () => {
     const dispatch = useDispatch();
@@ -10,6 +11,9 @@ const FormularioContato = () => {
     const [numero, setNumero] = useState("");
     const [email, setEmail] = useState("");
     const [id, setId] = useState<number>(0);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+
+    const navigate = useNavigate()
 
     const CadastrarContato = (evento: FormEvent) => {
         evento.preventDefault();
@@ -20,8 +24,17 @@ const FormularioContato = () => {
                 email,
                 id,
             })
-        );
-    };
+        )
+
+        setSubmitSuccess(true)
+
+        setNome("")
+        setNumero("")
+        setEmail("")
+
+        setTimeout(() => setSubmitSuccess(false), 1000)
+
+    }
 
     return (
         <PainelAdicionar>
@@ -49,17 +62,14 @@ const FormularioContato = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <label htmlFor="id">Id :</label>
-                <input
-                    id="id"
-                    type="number"
-                    value={id}
-                    onChange={(e) => setId(Number(e.target.value))}
-                />
 
-                <button type="submit">Adicionar</button>
+
+                {submitSuccess ? <button type="submit" className={submitSuccess ? 'submit-success' : ''}>Contato Adicionado</button> :
+                    <button type="submit" className={submitSuccess ? 'submit-success' : ''}>Adicionar</button>}
+
             </form>
-            <BotaoLista />
+
+            <BotaoLista onClick={() => navigate('/')}>LISTA</BotaoLista>
         </PainelAdicionar>
     );
 };

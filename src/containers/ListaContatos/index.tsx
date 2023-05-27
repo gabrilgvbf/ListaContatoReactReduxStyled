@@ -1,16 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import BotaoAdicionar from '../../styles';
+
 
 import { ListagemContato } from './styles';
 import { RootReducer } from '../../store';
+import Contato from '../../componentes/Contato';
+import { useNavigate } from 'react-router-dom';
+import { BotaoAdicionar } from '../../styles';
 
-import Contato from '../../componentes/Contato/Index';
 
 const ListaContato: React.FC = () => {
     const { itens } = useSelector((state: RootReducer) => state.contatos);
 
-
+    const navigate = useNavigate()
 
 
     return (
@@ -27,7 +29,7 @@ const ListaContato: React.FC = () => {
                         />
                     </li>
                 ))}
-                <BotaoAdicionar />
+                <BotaoAdicionar onClick={() => navigate('/Formulario')}>NOVO</BotaoAdicionar>
             </ListagemContato>
         </>
     );
