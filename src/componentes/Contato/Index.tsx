@@ -1,7 +1,7 @@
 
 import { ContatoForm } from "./styles";
-import ContatoClass from "../../models/Contato"
-import { Editar, remover } from "../../store/reducers/contatos";
+import ContatoClass from "../../models/contato"
+import { editar, remover } from "../../store/reducers/contato";
 import { useDispatch } from "react-redux"
 import { useEffect, useState } from "react";
 type Props = ContatoClass
@@ -17,7 +17,7 @@ const Contato = ({ nome: nomeOriginal, numero: numeroOriginal, email: emailOrigi
         dispatch(remover(id))
     }
     const ContatoEditado = () => {
-        dispatch(Editar({
+        dispatch(editar({
             nome,
             numero,
             email,

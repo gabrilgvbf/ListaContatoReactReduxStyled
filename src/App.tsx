@@ -1,9 +1,11 @@
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import FormularioContato from './containers/Formulario/Index';
-import ListaContato from './containers/ListaContato';
-import store from './store';
-import { GlobalStyle } from './styles';
+import FormularioContato from './containers/Formulario';
+
+import ListaContato from './containers/ListaContatos';
+import store from './store'
+import GlobalStyle from './styles';
+
 
 const rotas = createBrowserRouter([
   {

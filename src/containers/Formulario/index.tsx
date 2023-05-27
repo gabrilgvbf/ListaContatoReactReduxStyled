@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import BotaoLista from "../../components/Botoes/IrContatos";
+import BotaoLista from "../../styles";
 import { PainelAdicionar } from "./styles";
 import { adicionar } from "../../store/reducers/contato";
 import { FormEvent, useState } from "react";

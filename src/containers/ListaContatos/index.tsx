@@ -1,18 +1,17 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import BotaoAdicionar from '../../components/Botoes/IrFormulario';
-import Contato from '../../components/Contato';
-import { ListagemContato } from './styled';
+import { useSelector } from 'react-redux';
+import BotaoAdicionar from '../../styles';
+
+import { ListagemContato } from './styles';
 import { RootReducer } from '../../store';
-import { remover } from '../../store/reducers/contatos';
+
+import Contato from '../../componentes/Contato/Index';
 
 const ListaContato: React.FC = () => {
     const { itens } = useSelector((state: RootReducer) => state.contatos);
-    const dispatch = useDispatch();
 
-    const removerContato = (id: number) => {
-        dispatch(remover(id));
-    };
+
+
 
     return (
         <>
@@ -25,7 +24,6 @@ const ListaContato: React.FC = () => {
                             numero={contato.numero}
                             email={contato.email}
                             id={contato.id}
-                            onRemover={() => removerContato(contato.id)}
                         />
                     </li>
                 ))}
